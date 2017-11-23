@@ -13,7 +13,6 @@ def openUrl(url, hdr={'User-Agent': "Magic Browser"}):
     """
     Returns the webpage as text
     :param url: the url of the webpage
-    :return:
     """
     req = urllib2.Request(url, headers=hdr)
     source = urllib2.urlopen(req).read()
@@ -56,7 +55,7 @@ def encodeLink(link):
 
     """
     Returns an encoded url
-    :param link:
+    :param link: takes the url of the webpage
 
     """
     ind = link.find(" ")
@@ -131,15 +130,15 @@ def getDetails(urls):
 
             tcases = i.find_all("span", {"class": "Tcase"})
 
-            hospital_type = tcases[0].text.strip()
+            hospital_type = tcases[0].text.encode('ascii', 'ignore').strip()
 
-            ownership = tcases[1].text.strip()[11:]
+            ownership = tcases[1].text.encode('ascii', 'ignore').strip()[11:]
 
-            location = tcases[2].text.strip()
+            location = tcases[2].text.encode('ascii', 'ignore').strip()
 
-            services = tcases[4].text.strip()
+            services = tcases[4].text.encode('ascii', 'ignore').strip()
 
-            NHIS_accredited = tcases[6].text.strip()
+            NHIS_accredited = tcases[6].text.encode('ascii', 'ignore').strip()
 
         # Write the variables to a csv file to store
         f.write(name.replace(",", " ") + "," + region.replace(",", " ")+ "," + hospital_type.replace(",", " ") + "," + ownership.replace(",", " ") + \
@@ -150,8 +149,13 @@ def getDetails(urls):
 
 def main():
 
+    #Get the names of all the regions
     regions_ = regions()
+
+    #Get the hospital urls of each hospital
     urls = getHospitalURLs(regions_)
+
+    #Scrape the data about each hospital
     getDetails(urls)
 
 
