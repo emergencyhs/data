@@ -1,5 +1,5 @@
 """
-This python file scrapes getting hospital data from url 'http://ghanahospitals.org/home/'
+This python file scrapes hospital data from url 'http://ghanahospitals.org/home/'
 """
 
 #import packages
@@ -132,7 +132,7 @@ def getDetails(urls):
 
             hospital_type = tcases[0].text.encode('ascii', 'ignore').strip()
 
-            ownership = tcases[1].text.encode('ascii', 'ignore').strip()[11:]
+            ownership = tcases[1].text.encode('ascii', 'ignore').strip()[10:]
 
             location = tcases[2].text.encode('ascii', 'ignore').strip()
 
